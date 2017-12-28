@@ -57,7 +57,6 @@ namespace MatthewsCrossingFoodBank
                     return false;
                 }
 
-
                 // Check correct order of fields
                 for (int i = 0; i < FIELDS.Length; i++)
                 {
