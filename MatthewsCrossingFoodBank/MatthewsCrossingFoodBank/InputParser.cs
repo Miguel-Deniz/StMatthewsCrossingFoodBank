@@ -9,9 +9,24 @@ namespace MatthewsCrossingFoodBank
     class InputParser
     {
         private const int FIELDS_PER_RECORD = 15;
-        private static readonly string[] FIELDS = { "Donation_ID", "Donor_is_a_Company", "First_Name", "Last_Name",
-                    "Email_Address", "Salutation_Greeting_Dear_So_and_So", "Street_Address", "Apartment", "City_Town",
-                    "State_Province", "Zip_Postal_Code", "Donation_Type", "Donated_On", "Amount", "Weight_lbs" };
+
+        private static readonly string[] FIELDS = {
+            "Donation_ID",
+            "Donor_is_a_Company",
+            "First_Name",
+            "Last_Name",
+            "Email_Address",
+            "Salutation_Greeting_Dear_So_and_So",
+            "Street_Address",
+            "Apartment",
+            "City_Town",
+            "State_Province",
+            "Zip_Postal_Code",
+            "Donation_Type",
+            "Donated_On",
+            "Amount",
+            "Weight_lbs"
+        };
 
         public static Donor[] parseFile(string fileName)
         {
