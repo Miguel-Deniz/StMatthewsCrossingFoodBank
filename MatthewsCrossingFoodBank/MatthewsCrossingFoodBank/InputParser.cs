@@ -35,7 +35,7 @@ namespace MatthewsCrossingFoodBank
         }
 
         /// <summary>
-        /// Determines whether the given file is in the correct format
+        /// Determines whether the given file is in the correct format.
         /// </summary>
         /// 
         /// Format:
