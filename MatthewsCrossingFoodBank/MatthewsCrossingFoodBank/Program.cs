@@ -17,7 +17,7 @@ namespace MatthewsCrossingFoodBank
         [STAThread]
         static void Main()
         {
-            
+
         }
     }
 }
