@@ -1,5 +1,8 @@
-﻿using FileHelpers;
+﻿using ExcelDataReader;
+using FileHelpers;
 using System;
+using System.Data;
+using System.IO;
 
 namespace MatthewsCrossingFoodBank
 {
@@ -10,80 +13,53 @@ namespace MatthewsCrossingFoodBank
     {
         private const int FIELDS_PER_RECORD = 15;
 
-        private static readonly string[] FIELDS = {
-            "Donation_ID",
-            "Donor_is_a_Company",
-            "First_Name",
-            "Last_Name",
-            "Email_Address",
-            "Salutation_Greeting_Dear_So_and_So",
-            "Street_Address",
-            "Apartment",
-            "City_Town",
-            "State_Province",
-            "Zip_Postal_Code",
-            "Donation_Type",
-            "Donated_On",
-            "Amount",
-            "Weight_lbs"
-        };
-
-        public static Donor[] parseFile(string fileName)
+        public static MonetaryDonor[] parseMonetaryFile(string fileName)
         {
-            FileHelperEngine<Donor> engine = new FileHelperEngine<Donor>();
+            FileHelperEngine<MonetaryDonor> engine = new FileHelperEngine<MonetaryDonor>();
+            
             return engine.ReadFile(fileName);
         }
 
+        
         /// <summary>
-        /// Determines whether the given file is in the correct format.
+        ///     Converts the Excel sourceFile into a CSV destinationFile.
+        ///     The Excel file must contain at least 1 sheet.
         /// </summary>
-        /// 
-        /// Format:
-        ///      1. Donation_ID
-        ///      2. Donor_is_a_Company
-        ///      3. First_Name
-        ///      4. Last_Name
-        ///      5. Email_Address
-        ///      6. Salutation_Greeting_Dear_So_and_So
-        ///      7. Street_Address
-        ///      8. Apartment
-        ///      9. City_Town
-        ///     10. State_Province
-        ///     11. Zip_Postal_Code
-        ///     12. Donation_Type
-        ///     13. Donated_On
-        ///     14. Amount
-        ///     15. Weight_lbs
-        /// 
-        /// <param name="fileName"></param>
-        /// <returns>bool</returns>
-        public static bool isValidFormat(string fileName)
+        /// <param name="sourceFile"></param>
+        /// <param name="destinationFile"></param>
+        public static void convertXLSXFileToCSV(string sourceFile, string destinationFile)
         {
-            var detector = new FileHelpers.Detection.SmartFormatDetector();
-            var formats = detector.DetectFileFormat(fileName);
+            FileStream stream = File.Open(sourceFile, FileMode.Open, FileAccess.Read);
+            IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
 
-            if (formats.Length > 0 && formats[0].Confidence == 100)
+            DataSet result = excelReader.AsDataSet();
+
+            // Check if Excel file contains at least one sheet
+            if (result.Tables.Count < 1)
             {
-                var delimited = formats[0].ClassBuilderAsDelimited;
-
-                // Check for correct amount of fields
-                if (delimited.Fields.Length !=  FIELDS.Length)
-                {
-                    return false;
-                }
-
-                // Check correct order of fields
-                for (int i = 0; i < FIELDS.Length; i++)
-                {
-                    if (FIELDS[i] != delimited.Fields[i].FieldName) return false;
-                }
-
-                return true;
+                throw new System.InvalidOperationException("Excel file does not contain at least one sheet.");
             }
-            else
+
+            string csvData = "";
+
+            for (int row = 0; row < result.Tables[0].Rows.Count; row++)
             {
-                return false;
-            }  
+                for (int col = 0; col < result.Tables[0].Columns.Count; col++)
+                {
+                    if (col == 0)
+                        csvData += "\"" + result.Tables[0].Rows[row][col].ToString() + "\"";
+                    else
+                        csvData += ",\"" + result.Tables[0].Rows[row][col].ToString() + "\"";
+                }
+
+                csvData += "\n";
+            }
+
+            string output = destinationFile;
+            StreamWriter csv = new StreamWriter(@output, false);
+            csv.Write(csvData);
+            csv.Close();
+            excelReader.Close();
         }
     }
 }
