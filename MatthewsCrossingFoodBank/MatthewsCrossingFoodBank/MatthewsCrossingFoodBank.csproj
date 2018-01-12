@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailClient.cs" />
+    <Compile Include="HTMLLetter.cs" />
     <Compile Include="MailMessageBuilder.cs" />
     <Compile Include="MonetaryDonor.cs" />
     <Compile Include="FoodDonor.cs" />
