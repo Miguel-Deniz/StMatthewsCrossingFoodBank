@@ -1,1 +1,3 @@
 # StMatthewsCrossingFoodBank
+
+Open source project
