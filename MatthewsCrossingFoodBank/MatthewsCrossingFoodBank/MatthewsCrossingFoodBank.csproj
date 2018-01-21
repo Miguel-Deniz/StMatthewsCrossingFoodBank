@@ -48,6 +48,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.8.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.8.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ExcelDataReader, Version=3.3.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.3.3.0\lib\net45\ExcelDataReader.dll</HintPath>
       <Private>True</Private>
@@ -60,9 +64,22 @@
       <HintPath>..\packages\FileHelpers.3.2.7\lib\net45\FileHelpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GemBox.Document, Version=27.3.30.1160, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <HintPath>..\packages\GemBox.Document.27.3.30.1160\lib\net30\GemBox.Document.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenXmlPowerTools, Version=4.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenXmlPowerTools.4.5.3.2\lib\net45\OpenXmlPowerTools.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Management.Automation.dll.10.0.10586.0\lib\net40\System.Management.Automation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,8 +89,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailClient.cs" />
+    <Compile Include="HTMLLetter.cs" />
+    <Compile Include="MailMessageBuilder.cs" />
     <Compile Include="MonetaryDonor.cs" />
     <Compile Include="FoodDonor.cs" />
     <Compile Include="Form1.cs">
@@ -119,6 +140,35 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
