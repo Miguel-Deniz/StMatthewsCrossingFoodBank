@@ -39,7 +39,7 @@ namespace MatthewsCrossingFoodBank
             donor.donatedOn = DateTime.Now.ToString("MMMM dd, yyyy");
 
             string body = HTMLLetter.getHTML(donor);
-            client.sendEmail("jasongaytan10@gmail.com", "Test", body);
+            //client.sendEmail("jasongaytan10@gmail.com", "Test", body);
         }
     }
 }
