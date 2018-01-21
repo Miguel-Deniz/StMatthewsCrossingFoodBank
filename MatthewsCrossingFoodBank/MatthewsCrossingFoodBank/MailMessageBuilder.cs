@@ -3,7 +3,7 @@ using System.Net.Mail;
 
 namespace MatthewsCrossingFoodBank
 {
-    class MailMessageBuilder
+    public class MailMessageBuilder
     {
         private string _from = null;
         private string _to = null;
